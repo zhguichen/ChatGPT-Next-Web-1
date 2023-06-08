@@ -1,16 +1,17 @@
-import { Analytics } from "@vercel/analytics/react";
-
+import type { AppProps } from 'next/app';
+import { Analytics } from '@vercel/analytics/react';
 import { Home } from "./components/home";
-
 import { getServerSideConfig } from "./config/server";
 
 const serverConfig = getServerSideConfig();
 
-export default async function App() {
+function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Home />
+      <Component {...pageProps} />
       {serverConfig?.isVercel && <Analytics />}
     </>
   );
 }
+
+export default MyApp;
